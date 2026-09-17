@@ -1,26 +1,28 @@
-# credit-card-fraud-detection
+# Credit Card Fraud Detection
 
-Case study 2 : Credit Card Fraud Detection — Apply XGBoost on a heavily imbalanced transactions dataset (e.g. Kaggle IEEE-CIS). Use SMOTE for oversampling, tune decision thresholds, and interpret results with feature importance scores.
+Case Study 2: Credit Card Fraud Detection using XGBoost on a heavily imbalanced transaction dataset. SMOTE is used for oversampling, decision thresholds are tuned, and feature importance is examined.
 
-# Credit Card Fraud Detection using XGBoost and SMOTE
+## Dataset
 
-A complete machine learning pipeline designed to detect fraudulent transactions using the **IEEE-CIS Fraud Detection** dataset. This project uses **SMOTE**, an **XGBoost Classifier**, and decision threshold tuning.
+The project uses the **IEEE-CIS Fraud Detection** dataset from Kaggle.
 
-## Project Overview
+**Dataset:** [Kaggle IEEE-CIS Fraud Detection](https://www.kaggle.com/competitions/ieee-fraud-detection/data)
 
-In fraud detection, transaction datasets are highly imbalanced. This project demonstrates how to handle the imbalance and train a model to identify fraudulent transactions.
+The original training dataset contains **590,540 transactions** and **394 columns**.
 
-### Key Highlights
+## Steps Performed
 
-* **Dataset:** Official [Kaggle IEEE-CIS Fraud Detection Dataset](https://www.kaggle.com/competitions/ieee-fraud-detection/data) containing **590,540 transactions** and **394 transaction columns**.
-* **Exploratory Data Analysis (EDA):** Examined the class distribution between legitimate and fraudulent transactions.
-* **Handling Imbalance:** Applied **SMOTE** on the training split.
-* **Modeling:** Trained an **XGBClassifier** to capture non-linear patterns.
-* **Threshold Tuning:** Compared classification thresholds to balance fraud detection and false alarms.
+1. **Loading and Studying Dataset**
+2. **Splitting Dataset** into training and validation sets
+3. **Applying SMOTE** to balance the training classes
+4. **Training XGBoost** for fraud classification
+5. **Threshold Tuning** to select a classification threshold
+6. **Feature Importance** to identify important predictors
+7. **Model Evaluation** using ROC-AUC, precision, recall, F1-score and confusion matrix
 
 ## Performance Metrics
 
-Evaluation on the held-out validation set from the working sample:
+Evaluation on the held-out validation set from the working sample yielded:
 
 - **ROC-AUC Score:** `0.9117`
 - **Selected Threshold:** `0.40`
@@ -28,21 +30,33 @@ Evaluation on the held-out validation set from the working sample:
 - **Recall:** `0.7697`
 - **F1-Score:** `0.7668`
 - **Accuracy:** `0.8631`
-- **Confusion Matrix:** `[[9017, 983], [952, 3181]]`
+- **Confusion Matrix:**
 
-(TN 9017 | FP 983 | FN 952 | TP 3181)
+  `[[9017, 983],`
+  ` [952, 3181]]`
+
+**True Negatives: 9017 | False Positives: 983 | False Negatives: 952 | True Positives: 3181**
+
+## Note
+
+The notebook uses a balanced working sample of the IEEE-CIS training data so that SMOTE remains practical on memory-limited machines. The reported metrics are from this working sample, not from the complete 590,540-row dataset.
 
 ## Project Structure
 
 ```text
+credit-card-fraud-detection/
 ├── CaseStudy2.ipynb
 └── README.md
 ```
 
-## Getting Started & Replication
+## Requirements
 
-Download the IEEE-CIS Fraud Detection training files from Kaggle and run `CaseStudy2.ipynb` in Google Colab or Jupyter Notebook.
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- Imbalanced-learn
+- XGBoost
+- Matplotlib
 
-> The notebook uses a balanced working sample of the IEEE-CIS training data so that SMOTE remains practical on memory-limited machines.
-
-> This project is an academic machine learning case study intended for educational purposes.
+This project is an academic machine learning case study intended for educational purposes.
