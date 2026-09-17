@@ -1,51 +1,54 @@
-# python-case-study2
-import random
+# Credit Card Fraud Detection
 
-# List of words
-words = ["python", "programming", "computer", "science", "keyboard",
-         "developer", "algorithm", "function", "variable", "internet"]
+**Case Study 2:** Apply **XGBoost** on the heavily imbalanced **IEEE-CIS Fraud Detection** dataset. Use **SMOTE** for oversampling, tune decision thresholds, and interpret results with feature importance scores.
 
-def scramble_word(word):
-    word_list = list(word)
-    random.shuffle(word_list)
-    return ''.join(word_list)
+## Project Overview
 
-def play_game():
-    print("Welcome to the Word Scrambling Game!")
-    print("You have 3 attempts to guess each word.\n")
+This project implements an end-to-end fraud detection pipeline using the IEEE-CIS transaction and identity training data. The workflow addresses class imbalance, trains an XGBoost classifier, tunes the classification threshold, and analyzes important features.
 
-    score = 0
-    attempts_allowed = 3
+### Key Highlights
 
-    while True:
-        word = random.choice(words)
-        scrambled = scramble_word(word)
+- **Dataset:** Kaggle IEEE-CIS Fraud Detection
+- **Data:** `train_transaction.csv` + `train_identity.csv`
+- **Imbalance handling:** SMOTE applied only to the training data
+- **Model:** XGBoost Classifier
+- **Threshold tuning:** Evaluate multiple probability thresholds using fraud-focused metrics
+- **Interpretability:** XGBoost feature importance scores
 
-        print("Scrambled word:", scrambled)
+## Project Structure
 
-        attempts = attempts_allowed
+```text
+├── CaseStudy2.ipynb
+├── README.md
+├── requirements.txt
+├── .gitignore
+└── data/
+    └── README.md
+```
 
-        while attempts > 0:
-            guess = input("Your guess: ").lower()
+## Dataset Setup
 
-            if guess == word:
-                print("Correct! You earned 10 points.\n")
-                score += 10
-                break
-            else:
-                attempts -= 1
-                print(f"Wrong! Attempts left: {attempts}")
+The raw IEEE-CIS files are intentionally not committed because of their size. Download the competition data from Kaggle and place `train_transaction.csv` and `train_identity.csv` inside `data/`.
 
-        if attempts == 0:
-            print(f"The correct word was: {word}\n")
+## Run
 
-        print("Current Score:", score)
+```bash
+pip install -r requirements.txt
+jupyter notebook CaseStudy2.ipynb
+```
 
-        choice = input("Do you want to play again? (yes/no): ").lower()
-        if choice != "yes":
-            print("\nFinal Score:", score)
-            print("Thanks for playing!")
-            break
+## Methodology
 
-# Start the game
-play_game()
+1. Load transaction and identity training data.
+2. Merge the datasets using `TransactionID`.
+3. Prepare numeric features and handle missing values.
+4. Split into stratified training and validation sets.
+5. Apply SMOTE only to the training portion.
+6. Train XGBoost.
+7. Evaluate ROC-AUC and precision/recall/F1.
+8. Tune the probability threshold on validation data.
+9. Plot the confusion matrix and top feature importances.
+
+## Note
+
+This is an educational machine-learning case study. The selected threshold should be interpreted as an experimental model operating point rather than a production fraud-policy decision.
